@@ -29,6 +29,10 @@ resource "aws_security_group" "vpc1_ssh_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.prefix}-vpc1-allow"
+  }
 }
 
 resource "aws_security_group" "vpc2_ssh_sg" {
@@ -60,5 +64,9 @@ resource "aws_security_group" "vpc2_ssh_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.prefix}-vpc2-allow"
   }
 }

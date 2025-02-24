@@ -1,15 +1,17 @@
 
 locals {
-  ami = "ami-05b10e08d247fb927"
-  instance_type = "t2.micro"
+  ami             = "ami-05b10e08d247fb927"
+  instance_type   = "t2.micro"
+  key_name        = "aalimsee-keypair"
   user_data_def_1 = "VPC-1"
   user_data_def_2 = "VPC-2"
-}
+  }
 
 # Create EC2 in VPC 1
 resource "aws_instance" "ec2_vpc1" {
   ami           = local.ami
   instance_type = local.instance_type
+  key_name      = local.key_name
   subnet_id     = aws_subnet.subnet_vpc1.id
   vpc_security_group_ids = [aws_security_group.vpc1_ssh_sg.id]
   associate_public_ip_address = true
@@ -38,6 +40,7 @@ resource "aws_instance" "ec2_vpc1" {
 resource "aws_instance" "ec2_vpc2" {
   ami           = local.ami
   instance_type = local.instance_type
+  key_name      = local.key_name
   subnet_id     = aws_subnet.subnet_vpc2.id
   vpc_security_group_ids = [aws_security_group.vpc2_ssh_sg.id]
   associate_public_ip_address = true

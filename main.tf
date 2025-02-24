@@ -13,10 +13,12 @@ locals {
 # Create VPC
 resource "aws_vpc" "vpc1" {
   cidr_block = local.cidr_block_vpc1
+  enable_dns_hostnames = true
   tags = {Name = "${var.prefix}-VPC-1"}
 }
 resource "aws_vpc" "vpc2" {
   cidr_block = local.cidr_block_vpc2
+  enable_dns_hostnames = true
   tags = {Name = "${var.prefix}-VPC-2"}
 }
 
@@ -64,7 +66,6 @@ resource "aws_route_table" "rt_vpc2" {
   }
   tags = {Name = "${var.prefix}-RouteTable-VPC2"}
 }
-
 output "output-rt-vpc2" {value=aws_route_table.rt_vpc2.*}
 
 resource "aws_route_table_association" "rta_vpc2" {
@@ -72,6 +73,7 @@ resource "aws_route_table_association" "rta_vpc2" {
   route_table_id = aws_route_table.rt_vpc2.id
 }
 output "output-rt-assoc-vpc2" {value=aws_route_table_association.rta_vpc2.*}
+
 
 # Create Subnet
 resource "aws_subnet" "subnet_vpc1" {
